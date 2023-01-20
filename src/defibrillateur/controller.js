@@ -8,14 +8,6 @@ const getDefibrillateurs = (req, res) => {
   })
 }
 
-const getDefibrillateursById = (req, res) => {
-  const defibrillateur_id = parseInt(req.params.id);
-  pool.query(queries.getDefibrillateursById, [defibrillateur_id], (err, results) => {
-      if(err) throw err;
-      res.status(200).json(results.rows);
-  })
-}
-
 const addDefibrillateur = (req, res) => {
   const { serial, locationName, locationAddr, state, electrodesExpiry } = req.body;
 
@@ -27,15 +19,11 @@ const addDefibrillateur = (req, res) => {
     })
 }
 
-const removeDefibrillateur = (req, res) => {
-  const defibrillateur_id  = parseInt(req.params.id);
-  pool.query(queries.removeDefibrillateur, [defibrillateur_id], (err, results) => {
-    const noDefibrillateurFound = !results.rows.length;
-
-    pool.query(queries.removeDefibrillateur, [defibrillateur_id], (err, results) => {
+const getDefibrillateursById = (req, res) => {
+  const defibrillateur_id = parseInt(req.params.id);
+  pool.query(queries.getDefibrillateursById, [defibrillateur_id], (err, results) => {
       if(err) throw err;
-      res.status(200).send("Defibrillateur Removed Successfully");
-    })
+      res.status(200).json(results.rows);
   })
 }
 
@@ -55,6 +43,19 @@ const updateDefibrillateur = (req, res) => {
     })
   })
 }
+
+const removeDefibrillateur = (req, res) => {
+  const defibrillateur_id  = parseInt(req.params.id);
+  pool.query(queries.removeDefibrillateur, [defibrillateur_id], (err, results) => {
+    const noDefibrillateurFound = !results.rows.length;
+
+    pool.query(queries.removeDefibrillateur, [defibrillateur_id], (err, results) => {
+      if(err) throw err;
+      res.status(200).send("Defibrillateur Removed Successfully");
+    })
+  })
+}
+
 
 module.exports = {
   getDefibrillateurs,
