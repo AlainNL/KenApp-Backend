@@ -9,5 +9,4 @@ router.get('/:id', controller.getDefibrillateursById);
 router.put('/:id', controller.updateDefibrillateur);
 router.delete('/:id', controller.removeDefibrillateur);
 
-
 module.exports = router;

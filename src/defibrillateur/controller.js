@@ -62,5 +62,5 @@ module.exports = {
   getDefibrillateursById,
   addDefibrillateur,
   removeDefibrillateur,
-  updateDefibrillateur
+  updateDefibrillateur,
 }
